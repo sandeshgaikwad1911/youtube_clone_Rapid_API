@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 
-const BASE_URL = "https://youtube138.p.rapidapi.co";
+const BASE_URL = "https://youtube138.p.rapidapi.com";
 
 const options = {
     params: {
-      q: 'desp',
       hl: 'en',
       gl: 'US'
     },
@@ -15,7 +14,7 @@ const options = {
     }
   };
   export const fetchDataFromUrl = async(url)=>{
-        const {data} = await axios.get(`${BASE_URL}/${url}`, options);
+    const { data } = await axios.get(`${BASE_URL}/${url}`, options);
         // console.log('fetchDataFromUrlData', data);
         return data;
   } 

@@ -3,24 +3,26 @@
 import { createContext, useEffect, useState } from "react";
 import { fetchDataFromUrl } from "../utils/api";
 
-export const Context = createContext(null);
+export const Context = createContext();
 
 export const AppContext = ({children})=>{
 
     const [loading, setLoading] = useState(false);
-    const [mobileMenu, setMobileMenu] = useState(false);
+    const [error, setError] = useState();
     const [searchResult, setSearchResult] = useState([]);
+    const [mobileMenu, setMobileMenu] = useState(false);
     const [selectCategory, setSelectCategory] = useState("New");
 
     const fetchSelectedCategoryData = (query)=>{
         setLoading(true);
-        fetchDataFromUrl(`search/?q={query}`).then((res)=>{
-            console.log('fetchSelectedCategoryData RES',res?.contents)
+        fetchDataFromUrl(`search/?q=${query}`).then((res)=>{
+            // console.log('fetchSelectedCategoryData RES',res?.contents);
             setSearchResult(res?.contents)
             setLoading(false);
         }).catch((error)=>{
-            console.log('fetchSelectedCategoryDataError', error);
-            setLoading(false)
+            console.log('fetchSelectedCategoryDataError', error?.response?.data?.message);
+            setError(error?.response?.data?.message || 'An Error Occurred');
+            setLoading(false);
         })
     } 
 
@@ -31,8 +33,9 @@ export const AppContext = ({children})=>{
     return(
         <Context.Provider value={{
                 loading, setLoading,
+                searchResult, setSearchResult,
+                error,
                 mobileMenu, setMobileMenu, 
-                searchResult, setSearchResult, 
                 selectCategory, setSelectCategory
             }}
         >

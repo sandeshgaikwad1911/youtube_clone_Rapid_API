@@ -25,9 +25,10 @@ const Header = () => {
   // --------------------------------------------------------------------------------------------------------
 
   const searchQueryHandler = (e)=>{
-    console.log('searchQueryHandler', e)
+    // console.log('searchQueryHandler', e)
     if( (e?.key === "Enter" || e === "searchButton") && searchQuery.length > 0){
       navigate(`/searchResult/${searchQuery}`)
+      setSearchQuery("");
       // <Route path='/searchResult/:searchQuery' element={<SearchResult/>}/>
     }
   }
@@ -54,7 +55,7 @@ const Header = () => {
   // --------------------------------------------------------------------------------------------------
 
   return (
-    <div className="sticky top-0 z-10 flex flex-row items-center justify-between h-14 px-4 md:px-5 bg-white dark:bg-black">
+    <div className="sticky top-0 z-10 flex items-center justify-between md:justify-start h-14 px-4 bg-white dark:bg-black">
 
         {
           loading && <Loader/>
@@ -82,7 +83,7 @@ const Header = () => {
 
         </div>
 
-        <div className="group flex items-center">
+        <div className="group flex items-center md:ml-[240px]">
               <div className="flex h-8 md:h-10 md:ml-10 md:pl-5 border border-[#303030] rounded-l-3xl group-focus-within:border-blue-500 md:group-focus-within:ml-5 md:group-focus-within:pl-0">
                   <div className="w-10 items-center justify-center hidden group-focus-within:md:flex">
                       <IoIosSearch className="text-white text-xl" />
@@ -102,7 +103,7 @@ const Header = () => {
               >
                   <IoIosSearch className="text-white text-xl" />
               </button>
-        </div>
+        </div> 
 
     </div>
   )
